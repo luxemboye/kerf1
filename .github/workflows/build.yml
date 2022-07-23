@@ -16,13 +16,14 @@ jobs:
       - name: Build kerf
         run: |
           cd $GITHUB_WORKSPACE/src/
-          make release
+          make all
+          mv kerf kerf-macos
 
       - name: Upload build
         uses: actions/upload-artifact@v3
         with:
           name: kerf-macOS
-          path: ${{ github.workspace }}/src/kerf
+          path: ${{ github.workspace }}/src/kerf-macos
           if-no-files-found: error
 
   release:
@@ -46,11 +47,3 @@ jobs:
           tag_name: ${{ steps.vars.outputs.tag_name }}
           files: |
             output/kerf-macOS 
-
-      - name: Start SSH server on failure
-        if: ${{ failure() }}
-        timeout-minutes: 10
-        uses: mdelillo/ssh-server-action@v1
-        with:
-          ngrok-authtoken: "${{ secrets.NGROK_AUTHTOKEN }}"
-          ssh-public-key: "${{ secrets.SSH }}"
