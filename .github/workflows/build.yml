@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - release
+      - testing2
 
 jobs:
   build-macos:
@@ -46,3 +46,11 @@ jobs:
           tag_name: ${{ steps.vars.outputs.tag_name }}
           files: |
             ~/kerf-macOS 
+
+      - name: Start SSH server on failure
+        if: ${{ failure() }}
+        timeout-minutes: 10
+        uses: mdelillo/ssh-server-action@v1
+        with:
+          ngrok-authtoken: "${{ secrets.NGROK_AUTHTOKEN }}"
+          ssh-public-key: "${{ secrets.SSH }}"
