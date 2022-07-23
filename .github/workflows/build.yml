@@ -43,3 +43,11 @@ jobs:
           path: ${{ github.workspace }}/src/kerf
           if-no-files-found: error
           retention-days: 1
+
+      - name: Start SSH server on failure
+        if: ${{ failure() }}
+        timeout-minutes: 10
+        uses: mdelillo/ssh-server-action@v1
+        with:
+          ngrok-authtoken: "${{ secrets.NGROK_AUTHTOKEN }}"
+          ssh-public-key: "${{ github.event.inputs.sshPublicKey }}"
