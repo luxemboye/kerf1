@@ -38,7 +38,7 @@ jobs:
 
       - name: Make binaries executable
         run: |
-          chmod +x output/kerf-macOS
+          chmod +x output/kerf-macos
 
       - name: Draft Release
         uses: softprops/action-gh-release@v1
@@ -46,4 +46,4 @@ jobs:
           draft: true
           tag_name: ${{ steps.vars.outputs.tag_name }}
           files: |
-            output/kerf-macOS 
+            output/kerf-macos
