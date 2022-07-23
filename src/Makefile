@@ -38,7 +38,7 @@ OS := $(shell uname -s | tr "[:upper:]" "[:lower:]")
 ifeq (linux,$(OS))
 # x-platform linux version can use static libedit lib, if compiling for self use only, can instead link -ledit 
 # LDFLAGS +=  -ldl -lm -lpthread -lrt -ltermcap -lz ./libedit.a
-LDFLAGS +=  -ldl -lm -lpthread -lrt -ltermcap -lz -ledit
+LDFLAGS +=  -ldl -lm -lpthread -lrt -ltermcap -lz /usr/local/lib/libedit.a
 CFLAGS  += -rdynamic -m64 # -w
 ifneq (,$(findstring DDEBUG, $(CFLAGS)))
   $(info Adding -g debug flag)
