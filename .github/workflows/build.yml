@@ -1,0 +1,27 @@
+name: Build kerf1
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - macOS
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Build kerf
+        run: |
+          cd $GITHUB_WORKSPACE/src/
+          make release
+
+      - name: Upload build
+        uses: actions/upload-artifact@v3
+        with:
+          name: kerf-macOS
+          path: ${{ github.workspace }}/src/kerf
+          if-no-files-found: error
+          retention-days: 1
