@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    tags:
+      - '*'
 
 jobs:
   build-macos:
@@ -19,12 +21,12 @@ jobs:
           mv kerf kerf-macos
 
       - name: Test kerf
-        timeout-minutes: 1
+        timeout-minutes: 1 # It is an interactive test, otherwise, a tool like expect should be used
         continue-on-error: true
         run: $GITHUB_WORKSPACE/src/kerf_test
 
       - name: Upload build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3 # All users can find the artifacts inside of the actions
         with:
           name: kerf-macOS
           path: ${{ github.workspace }}/src/kerf-macos
@@ -55,12 +57,12 @@ jobs:
           mv kerf kerf-linux
 
       - name: Test kerf
-        timeout-minutes: 1
+        timeout-minutes: 1 # It is an interactive test, otherwise, a tool like expect should be used
         continue-on-error: true
         run: $GITHUB_WORKSPACE/src/kerf_test
 
       - name: Upload build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3 # All users can find the artifacts inside of the actions
         with:
           name: kerf-linux
           path: ${{ github.workspace }}/src/kerf-linux
@@ -100,7 +102,7 @@ jobs:
 
       - name: Draft Release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') # Only DRAFT releases on tags, owner still has to write body and publish it
         with:
           draft: true
           tag_name: ${{ steps.vars.outputs.tag_name }}
