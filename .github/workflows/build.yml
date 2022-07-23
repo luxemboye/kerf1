@@ -35,6 +35,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: kerf-linux
-          path: ${{ GITHUB_WORKSPACE }}/src/kerf
+          path: ${{ github.workspace }}/src/kerf
           if-no-files-found: error
           retention-days: 1
