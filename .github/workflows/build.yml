@@ -28,7 +28,7 @@ jobs:
 
       - name: Build kerf
         run: |
-          cd ${{GITHUB_WORKSPACE}}/src/
+          cd $GITHUB_WORKSPACE/src/
           make release
 
       - name: Upload build
