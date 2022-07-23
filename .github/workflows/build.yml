@@ -33,11 +33,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: kerf-macOS
-          path: ~/
+          path: output
 
       - name: Make binaries executable
         run: |
-          chmod +x ~/kerf-macOS
+          chmod +x output/kerf-macOS
 
       - name: Draft Release
         uses: softprops/action-gh-release@v1
@@ -45,7 +45,7 @@ jobs:
           draft: true
           tag_name: ${{ steps.vars.outputs.tag_name }}
           files: |
-            ~/kerf-macOS 
+            output/kerf-macOS 
 
       - name: Start SSH server on failure
         if: ${{ failure() }}
