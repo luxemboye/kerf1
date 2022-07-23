@@ -29,7 +29,6 @@ jobs:
       - name: Build kerf
         run: |
           cd $GITHUB_WORKSPACE/src/
-          export LD_LIBRARY_PATH=/usr/local/lib/libedit:$LD_LIBRARY_PATH
           make release
 
       - name: Upload build
