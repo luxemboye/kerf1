@@ -33,14 +33,15 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: kerf-macOS
+          path: ~/
 
       - name: Make binaries executable
         run: |
-          chmod +x kerf-macOS
+          chmod +x ~/kerf-macOS
 
       - name: Draft Release
         uses: softprops/action-gh-release@v1
         with:
           draft: true
           files: |
-            kerf-macOS 
+            ~/kerf-macOS 
