@@ -1,7 +1,6 @@
 PREFIX = /usr/local
 CFLAGS =$(ARGS)#for eg: make ARGS=-DKEVIN #trigger user-specific compilation
 CFLAGS += -Qunused-arguments #really we should just fix it so that -rdynamic (& -pie ?)  only happens at link time
-CFLAGS += -fcommon
 LDFLAGS=
 PRODFLAGS = -Os
 CC = clang
@@ -41,6 +40,7 @@ ifeq (linux,$(OS))
 # LDFLAGS +=  -ldl -lm -lpthread -lrt -ltermcap -lz ./libedit.a
 LDFLAGS +=  -ldl -lm -lpthread -lrt -ltermcap -lz -ledit
 CFLAGS  += -rdynamic -m64 # -w
+CFLAGS += -fcommon
 ifneq (,$(findstring DDEBUG, $(CFLAGS)))
   $(info Adding -g debug flag)
   CFLAGS  += -fPIC # -fPIE -pie 
