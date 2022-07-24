@@ -1,6 +1,7 @@
 PREFIX = /usr/local
 CFLAGS =$(ARGS)#for eg: make ARGS=-DKEVIN #trigger user-specific compilation
 CFLAGS += -Qunused-arguments #really we should just fix it so that -rdynamic (& -pie ?)  only happens at link time
+CFLAGS += -fcommon
 LDFLAGS=
 PRODFLAGS = -Os
 CC = clang
